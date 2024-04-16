@@ -1,0 +1,44 @@
+locators = """
+            const selector = 'body > app-root > app-game > div > div.main-container > div.w-100.h-100 > div > div.game-play > div.bet-controls > app-bet-controls > div > app-bet-control:nth-child(1) > div > div.first-row.auto-game-feature > div.bet-block > app-spinner > div > div.input > input'
+            const spanSelector = 'body > app-root > app-game > div > div.main-container > div.w-100.h-100 > div > div.game-play > div.bet-controls > app-bet-controls > div > app-bet-control:nth-child(1) > div > div.first-row.auto-game-feature > div.buttons-block > button > span > label.amount > span:nth-child(1)'
+            
+            function updateInputValue() {
+                // Function to validate input as a float
+                function isValidFloat(value) {
+                    return !isNaN(parseFloat(value));
+                }
+
+                const inputElement = document.querySelector(selector);
+                const betButtonSpan = document.querySelector(spanSelector);
+
+                if (inputElement && betButtonSpan) {
+                    // Clear the input value
+                    inputElement.value = '';
+
+                    // Prompt the user for a new value
+                    const newValue = prompt('Enter a new value:');
+
+                    // Validate the input as a float
+                    if (isValidFloat(newValue)) {
+                    // Update the input value with the parsed float value
+                    inputElement.value = parseFloat(newValue);
+
+                    // Update the text content of the span within the bet button
+                    betButtonSpan.textContent = inputElement.value;
+
+                    // Dispatch an input event to trigger any associated updates
+                    inputElement.dispatchEvent(new Event('input', { bubbles: true }));
+
+                    return `Input value updated to: ${inputElement.value}`;
+                    } else {
+                    return 'Invalid input. Please enter a valid number.';
+                    }
+                } else {
+                    console.log('Input element or bet button span not found.');
+                }
+                
+                updateInputValue();
+
+            }
+
+        """
